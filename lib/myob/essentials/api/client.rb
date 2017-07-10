@@ -63,11 +63,11 @@ module Myob
         def refresh!
           @auth_connection ||= OAuth2::AccessToken.new(@client, @access_token, {refresh_token: @refresh_token})
 
-          @token         = @auth_connection.refresh!
-          @access_token  = @token.token
-          @expires_at    = @token.expires_at
-          @refresh_token = @token.refresh_token
-          @token
+          @auth_connection = @auth_connection.refresh!
+          @access_token    = @auth_connection.token
+          @expires_at      = @auth_connection.expires_at
+          @refresh_token   = @auth_connection.refresh_token
+          @auth_connection
         end
 
         def connection
